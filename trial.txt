@@ -1,0 +1,7 @@
+clean code
+
+responsive
+
+deploy
+
+[add drag and drop in kanban]
