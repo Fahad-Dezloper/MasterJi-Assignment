@@ -13,10 +13,10 @@ interface Article {
   url: string | undefined;
 }
 
-const NewsDetails: React.FC<{ currentPage: number; articlesPerPage: number }> = ({ currentPage, articlesPerPage }) => {
-    const [news, setnews] = useState(null)
-    const [loading, setLoading] = useState(true);
 
+const NewsDetails: React.FC<{ currentPage: number; articlesPerPage: number }> = ({ currentPage, articlesPerPage }) => {
+    const [news, setnews] = useState<Article[] | null>(null);
+    const [loading, setLoading] = useState(true);
     const newsApi = "8e4114d1455d44e4850431bf5e2885fe"
     
     async function getNews() {
@@ -72,10 +72,10 @@ const NewsDetails: React.FC<{ currentPage: number; articlesPerPage: number }> = 
         getNews();
     }, [])
 
-    if (!news || news.length === 0) return <div className='w-[90vw] sm:w-[55vw] min-h-[65vh] flex flex-col justify-center items-center'><Loader2 className="animate-spin w-12 h-12" />Loading News</div>;
+    if (!news) return <div className='w-[90vw] sm:w-[55vw] min-h-[65vh] flex flex-col justify-center items-center'><Loader2 className="animate-spin w-12 h-12" />Loading News</div>;
 
     const startIndex = currentPage * articlesPerPage;
-    const selectedArticles = news.slice(startIndex, startIndex + articlesPerPage);
+    const selectedArticles = news ? news.slice(startIndex, startIndex + articlesPerPage) : [];
 
     return (
       loading ? (
@@ -97,6 +97,7 @@ const NewsDetails: React.FC<{ currentPage: number; articlesPerPage: number }> = 
                 {article.description ? trunucateDescription(article.description) : 'No description available.'}
               </p>
               <a href={article.url} className='text-blue-500'>Read More</a>
+              <a href={article.url} className="w-full bg-white py-3 text-center text-blue-500 my-auto">View Full Article</a>
             </div>
           ))}
         </>
