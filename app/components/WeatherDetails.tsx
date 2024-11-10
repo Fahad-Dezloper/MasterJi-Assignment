@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
 
-const WeatherDetails = (weather) => {
+const WeatherDetails = (weather: any) => {
     // console.log("hi i am weather here", weather);
     const kelvinToCelsius = (kelvin: number) => {
         return Math.round(kelvin - 273.15);
